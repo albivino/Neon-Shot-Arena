@@ -57,17 +57,22 @@
     border-bottom: 1px solid rgba(0,245,255,0.15);
   }
 
-  .nav-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-    color: var(--neon-cyan);
-    text-shadow: 0 0 20px var(--neon-cyan);
+.nav-logo {
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
 
-  .nav-logo span { color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink); }
+  .nav-logo img {
+    height: 80px; /* Tutaj ustaw wysokość swojego logo */
+    width: auto;
+    display: block;
+    transition: filter 0.3s;
+  }
+
+  .nav-logo:hover img {
+    filter: drop-shadow(0 0 15px var(--neon-cyan));
+  }
 
   .nav-links {
     display: flex;
@@ -736,7 +741,9 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a class="nav-logo" href="#">NEON<span>SHOT</span> PARK</a>
+  <a class="nav-logo" href="#">
+    <img src="neon.png" alt="Neon Shot Park Logo">
+  </a>
   <ul class="nav-links">
     <li><a href="#oferta">Oferta</a></li>
     <li><a href="#urodziny">Urodziny</a></li>
@@ -818,7 +825,7 @@
     <div class="card reveal">
       <span class="card-icon">🎂</span>
       <h3>Imprezy Urodzinowe</h3>
-      <p>Organizujemy niezapomniane urodziny pełne akcji. Całe miejsce tylko dla Twojej grupy! Urodziny są prowadzone pod okiem instruktora.</p>
+      <p>Organizujemy niezapomniane urodziny pełne akcji. Całe miejsce tylko dla Twojej grupy! </p>
       <span class="card-tag">REZERWACJA PRYWATNA</span>
     </div>
     <div class="card reveal">
