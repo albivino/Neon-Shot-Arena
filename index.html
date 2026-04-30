@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Shot Park – Arena Nerf Białogard</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Barlow+Condensed:ital,wght@0,300;0,700;0,900;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-cyan: #00f5ff;
+    --neon-pink: #ff006e;
+    --neon-yellow: #f5ff00;
+    --neon-green: #39ff14;
+    --dark-bg: #060810;
+    --dark-panel: #0d1120;
+    --dark-card: #111827;
+    --text-light: #e8eaf6;
+    --text-muted: #6b7aab;
+    --grid-color: rgba(0,245,255,0.05);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark-bg);
+    color: var(--text-light);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(6,8,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,245,255,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--neon-cyan); }
+
+  .nav-cta {
+    background: transparent;
+    border: 2px solid var(--neon-pink);
+    color: var(--neon-pink) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    text-shadow: none !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--neon-pink) !important;
+    color: #fff !important;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,245,255,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-glow-pink {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,0,110,0.1) 0%, transparent 70%);
+    top: 30%; left: 20%;
+    transform: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(4rem, 12vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    animation: fadeSlideUp 0.9s ease both 0.1s;
+  }
+
+  .hero h1 .line1 { color: var(--text-light); }
+  .hero h1 .line2 {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 30px var(--neon-cyan), 0 0 80px rgba(0,245,255,0.4);
+    display: block;
+  }
+  .hero h1 .line3 {
+    color: var(--neon-pink);
+    text-shadow: 0 0 30px var(--neon-pink), 0 0 80px rgba(255,0,110,0.4);
+    display: block;
+    font-style: italic;
+  }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.5;
+    animation: fadeSlideUp 1s ease both 0.2s;
+  }
+
+  .hero-sub strong { color: var(--text-light); }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeSlideUp 1s ease both 0.3s;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    background: var(--neon-cyan);
+    color: var(--dark-bg);
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0,245,255,0.5);
+  }
+
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 38px;
+    background: transparent;
+    color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: transform 0.15s, background 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,0,110,0.15);
+    transform: translateY(-2px);
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    animation: float 2s ease-in-out infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(var(--neon-cyan), transparent);
+  }
+
+  /* ===== SECTIONS ===== */
+  section { position: relative; z-index: 1; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* ===== ABOUT ===== */
+  .about {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text .section-title { margin-bottom: 24px; }
+  .about-text .section-title em {
+    color: var(--neon-cyan);
+    font-style: normal;
+    text-shadow: 0 0 20px var(--neon-cyan);
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .about-text p strong { color: var(--text-light); }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .stat-box {
+    background: var(--dark-card);
+    border: 1px solid rgba(0,245,255,0.1);
+    padding: 32px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--neon-cyan);
+  }
+
+  .stat-box:nth-child(2)::before { background: var(--neon-pink); }
+  .stat-box:nth-child(3)::before { background: var(--neon-yellow); }
+  .stat-box:nth-child(4)::before { background: var(--neon-green); }
+
+  .stat-box:hover { border-color: rgba(0,245,255,0.3); }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan);
+    line-height: 1;
+  }
+
+  .stat-box:nth-child(2) .stat-num { color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink); }
+  .stat-box:nth-child(3) .stat-num { color: var(--neon-yellow); text-shadow: 0 0 20px var(--neon-yellow); }
+  .stat-box:nth-child(4) .stat-num { color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green); }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  /* ===== OFFER ===== */
+  .offer {
+    padding: 100px 40px;
+    background: var(--dark-panel);
+    border-top: 1px solid rgba(0,245,255,0.08);
+    border-bottom: 1px solid rgba(0,245,255,0.08);
+  }
+
+  .offer-inner { max-width: 1200px; margin: 0 auto; }
+  .offer-header { text-align: center; margin-bottom: 60px; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .card {
+    background: var(--dark-bg);
+    border: 1px solid rgb(245, 235, 235, 0.05);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,245,255,0.3);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+  }
+
+  .card:nth-child(2) .card-icon { filter: drop-shadow(0 0 8px var(--neon-pink)); }
+  .card:nth-child(3) .card-icon { filter: drop-shadow(0 0 8px var(--neon-yellow)); }
+
+  .card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  } 
+
+  .card p {
+    color: solid rgb(255, 255, 255);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .card-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+    border: 1px solid var(--neon-cyan);
+    padding: 4px 10px;
+  }
+
+  .card:nth-child(2) .card-tag { color: var(--neon-pink); border-color: var(--neon-pink); }
+  .card:nth-child(3) .card-tag { color: var(--neon-yellow); border-color: var(--neon-yellow); }
+
+  /* corner accent */
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, transparent 50%, rgba(0,245,255,0.15) 50%);
+  }
+
+  /* ===== BIRTHDAY ===== */
+  .birthday {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .birthday-visual {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .birthday-ring {
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,0,110,0.3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 20s linear infinite;
+  }
+
+  .birthday-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,245,255,0.2);
+  }
+
+  .birthday-inner {
+    animation: spin 20s linear infinite reverse;
+    text-align: center;
+  }
+
+  .birthday-emoji { font-size: 5rem; display: block; }
+
+  .birthday-inner p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px var(--neon-pink);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .birthday-text .section-title em {
+    color: var(--neon-pink);
+    font-style: normal;
+    text-shadow: 0 0 20px var(--neon-pink);
+  }
+
+  .birthday-text p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin: 20px 0;
+  }
+
+  .birthday-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .birthday-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .birthday-list li::before {
+    content: '▶';
+    color: var(--neon-pink);
+    font-size: 0.6rem;
+    text-shadow: 0 0 10px var(--neon-pink);
+    flex-shrink: 0;
+  }
+
+  /* ===== GAMES ===== */
+  .games {
+    padding: 100px 40px;
+    background: var(--dark-panel);
+    border-top: 1px solid rgba(255,0,110,0.08);
+    border-bottom: 1px solid rgba(255,0,110,0.08);
+  }
+
+  .games-inner { max-width: 1200px; margin: 0 auto; }
+  .games-header { text-align: center; margin-bottom: 60px; }
+  .games-header .section-title em {
+    color: var(--neon-yellow);
+    font-style: normal;
+    text-shadow: 0 0 20px var(--neon-yellow);
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .game-item {
+    background: var(--dark-bg);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 28px 20px;
+    text-align: center;
+    transition: border-color 0.25s, transform 0.25s;
+    cursor: default;
+  }
+
+  .game-item:hover {
+    border-color: rgba(245,255,0,0.3);
+    transform: translateY(-4px);
+  }
+
+  .game-item .icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+
+  .game-item h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--neon-yellow);
+    margin-bottom: 6px;
+  }
+
+  .game-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== CONTACT ===== */
+  .contact {
+    padding: 100px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact .section-title {
+    margin-bottom: 16px;
+  }
+
+  .contact .section-title em {
+    color: var(--neon-green);
+    font-style: normal;
+    text-shadow: 0 0 20px var(--neon-green);
+  }
+
+  .contact-sub {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    line-height: 1.6;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .contact-box {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 32px 20px;
+    transition: border-color 0.25s;
+  }
+
+  .contact-box:hover { border-color: rgba(57,255,20,0.3); }
+
+  .contact-box .cicon { font-size: 2rem; display: block; margin-bottom: 12px; }
+  .contact-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--neon-green);
+    margin-bottom: 8px;
+  }
+
+  .contact-box a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .contact-box a:hover { color: var(--neon-green); }
+
+  .contact-box p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid rgba(0,245,255,0.08);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 15px var(--neon-cyan);
+  }
+
+  .footer-logo span { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+
+  footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .footer-fb a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: text-shadow 0.2s;
+  }
+
+  .footer-fb a:hover { text-shadow: 0 0 15px var(--neon-cyan); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92%       { opacity: 1; }
+    93%       { opacity: 0.4; }
+    94%       { opacity: 1; }
+    96%       { opacity: 0.6; }
+    97%       { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .about, .birthday { grid-template-columns: 1fr; gap: 40px; }
+    .cards { grid-template-columns: 1fr; }
+    .games-grid { grid-template-columns: repeat(2,1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .hero h1 { font-size: clamp(3rem, 15vw, 5rem); }
+    .about, .birthday, .contact { padding: 60px 20px; }
+    .offer, .games { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" href="#">NEON<span>SHOT</span> PARK</a>
+  <ul class="nav-links">
+    <li><a href="#oferta">Oferta</a></li>
+    <li><a href="#urodziny">Urodziny</a></li>
+    <li><a href="#tryby">Tryby Gry</a></li>
+    <li><a href="#kontakt" class="nav-cta">Zarezerwuj</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow hero-glow-pink"></div>
+
+  <div class="hero-badge">// BIAŁOGARD · ARENA NERF</div>
+
+  <h1>
+    <span class="line1">WEJDŹ DO</span>
+    <span class="line2">NEON</span>
+    <span class="line3">ARENY</span>
+  </h1>
+
+  <p class="hero-sub">
+    Strzelaj, rywalizuj, zwyciężaj.<br>
+    <strong>Arena Nerf dla całej rodziny</strong> — adrenalina w czystej postaci.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#kontakt" class="btn-primary">Zarezerwuj wizytę</a>
+    <a href="#oferta" class="btn-secondary">Poznaj ofertę</a>
+  </div>
+
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ABOUT -->
+<section>
+<div class="about" id="oferta">
+  <div class="about-text reveal">
+    <div class="section-label">// O NAS</div>
+    <h2 class="section-title">CZYM JEST<br><em>NEON SHOT?</em></h2>
+    <p>To <strong>dynamiczna arena do strzelania z pistoletów Nerf</strong> — idealne miejsce dla dzieci, młodzieży i dorosłych, którzy cenią aktywną rozrywkę pełną emocji.</p>
+    <p>Walcz w neonowych dekoracjach, korzystaj z różnorodnych modeli Nerf i twórz niezapomniane wspomnienia. U nas każda wizyta to <strong>czysta adrenalina i dobra zabawa</strong>.</p>
+  </div>
+  <div class="about-stats reveal">
+    <div class="stat-box">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Bezpieczna zabawa</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Trybów gry</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Wiek uczestników</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Dobrej zabawy</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- OFFER CARDS -->
+<section class="offer">
+<div class="offer-inner">
+  <div class="offer-header reveal">
+    <div class="section-label">// NASZA OFERTA</div>
+    <h2 class="section-title">DLA KOGO JESTEŚMY?</h2>
+  </div>
+  <div class="cards">
+    <div class="card reveal">
+      <span class="card-icon">🧒</span>
+      <h3>Dzieci i Rodziny</h3>
+      <p>Bezpieczna zabawa w bezpiecznym środowisku. Pistolety Nerf dostarczone — wystarczy przyjść i strzelać!</p>
+      <span class="card-tag">OD 6 LAT</span>
+    </div>
+    <div class="card reveal">
+      <span class="card-icon">🎂</span>
+      <h3>Imprezy Urodzinowe</h3>
+      <p>Organizujemy niezapomniane urodziny pełne akcji. Całe miejsce tylko dla Twojej grupy!</p>
+      <span class="card-tag">REZERWACJA PRYWATNA</span>
+    </div>
+    <div class="card reveal">
+      <span class="card-icon">🏢</span>
+      <h3>Eventy & Grupy</h3>
+      <p>Integracje firmowe, wyjazdy klasowe, imprezy grupowe — dodaj do swojego wydarzenia dawkę adrenaliny.</p>
+      <span class="card-tag">WYNAJEM CAŁOŚCI</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BIRTHDAY -->
+<section>
+<div class="birthday" id="urodziny">
+  <div class="birthday-visual reveal">
+    <div class="birthday-ring">
+      <div class="birthday-inner">
+        <span class="birthday-emoji">🎉</span>
+        <p>URODZINY<br>PEŁNE AKCJI!</p>
+      </div>
+    </div>
+  </div>
+  <div class="birthday-text reveal">
+    <div class="section-label">// URODZINY</div>
+    <h2 class="section-title">IMPREZA<br><em>JAKIEJ NIE ZAPOMNISZ</em></h2>
+    <p>Zorganizuj urodziny w Neon Shot Park i podaruj solenizantowi dzień pełen emocji, śmiechu i walki Nerf!</p>
+    <ul class="birthday-list">
+      <li>Prywatna arena tylko dla Twojej grupy</li>
+      <li>Pistolety i amunicja Nerf zapewnione</li>
+      <li>Animacje i gry prowadzone przez obsługę</li>
+      <li>Idealne dla dzieci i dorosłych</li>
+      <li>Możliwość dekoracji i organizacji poczęstunku</li>
+    </ul>
+    <a href="#kontakt" class="btn-primary" style="margin-top:32px; display:inline-block;">Zarezerwuj urodziny</a>
+  </div>
+</div>
+</section>
+
+<!-- GAME MODES -->
+<section class="games" id="tryby">
+<div class="games-inner">
+  <div class="games-header reveal">
+    <div class="section-label">// TRYBY GRY</div>
+    <h2 class="section-title">WYBIERZ SWÓJ<br><em>TRYB WALKI</em></h2>
+  </div>
+  <div class="games-grid">
+    <div class="game-item reveal">
+      <span class="icon">⚔️</span>
+      <h4>Team Deathmatch</h4>
+      <p>Dwa zespoły walczą o dominację na arenie. Klasyka w neonowej odsłonie.</p>
+    </div>
+    <div class="game-item reveal">
+      <span class="icon">🏳️</span>
+      <h4>Capture the Flag</h4>
+      <p>Przechwyć flagę wroga i wróć do bazy. Strategia i szybkość wygrywa.</p>
+    </div>
+    <div class="game-item reveal">
+      <span class="icon">🧟</span>
+      <h4>Zombie Survival</h4>
+      <p>Jedna drużyna to zombie — czy uda Ci się przeżyć do końca?</p>
+    </div>
+    <div class="game-item reveal">
+      <span class="icon">🎯</span>
+      <h4>Free for All</h4>
+      <p>Każdy walczy sam. Ostatni stojący na arenie — zwycięzca!</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="reveal">
+    <div class="section-label">// KONTAKT I REZERWACJE</div>
+    <h2 class="section-title">GOTOWY DO<br><em>WALKI?</em></h2>
+    <p class="contact-sub">Skontaktuj się z nami, aby zarezerwować wizytę, urodziny lub event grupowy. Czekamy na Ciebie!</p>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="contact-box">
+      <span class="cicon">📍</span>
+      <h4>Lokalizacja</h4>
+      <a href="https://www.google.com/maps/place/Neon+Shot+Park/@54.0119911,16.0015186,19.09z/data=!4m9!1m2!2m1!1sZwyci%C4%99stwa+42!3m5!1s0x47004b003ace0e67:0x193097daa6390130!8m2!3d54.0117394!4d16.0028999!16s%2Fg%2F11y5s1f158?entry=ttu&g_ep=EgoyMDI2MDQyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank">Zwycięstwa 42 Białogard</a>
+      <p>Pomorze Zachodnie</p>
+    </div>
+    <div class="contact-box">
+      <span class="cicon">📘</span>
+      <h4>Facebook</h4>
+      <a href="https://www.facebook.com/p/Neon-Shot-Park-61557725756050/" target="_blank">Neon Shot Park</a>
+      <p>Napisz do nas!</p>
+    </div>
+    <div class="contact-box">
+      <span class="cicon">🕐</span>
+      <h4>Godziny</h4>
+      <a href="#">Sprawdź na FB</a>
+      <p>Aktualne godziny otwarcia</p>
+    </div>
+  </div>
+  <a href="https://www.facebook.com/p/Neon-Shot-Park-61557725756050/" target="_blank" class="btn-primary">Napisz na Facebooku</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NEON<span>SHOT</span> PARK</div>
+  <p>© 2026 Neon Shot Park · Zwycięstwa 42, 78-200 Białogard · Arena Nerf</p>
+  <div class="footer-fb">
+    <a href="https://www.facebook.com/p/Neon-Shot-Park-61557725756050/" target="_blank">
+      <span>📘</span> Facebook
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50 ? 'rgba(6,8,16,0.97)' : 'rgba(6,8,16,0.85)';
+  });
+</script>
+</body>
+</html>
